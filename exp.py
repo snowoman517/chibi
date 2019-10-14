@@ -23,11 +23,11 @@ class Add(object):
 
 
 e = Add(Val(1), Val(2))
-print(e.eval())
 assert v.eval() == 3
         
 e = Add(Val(1),Add(Val(2),Val(3)))
-print(e.eval())
+assert v.eval() == 6
+
 
 
 print()
