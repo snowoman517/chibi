@@ -62,26 +62,41 @@ class Mod(Binary):
     def eval(self, env: dict):
         return self.left.eval(env) % self.right.eval(env)
 
+class Eq(Binary):
+    __slots__ = ['left', 'right']
+    def eval(self, env: dict):
+        return 1 if self.left.eval(env) == self.right.eval(env) else 0
+
+class Ne(Binary):
+     __slots__ = ['left', 'right']
+    def eval(self, env: dict):
+         return 1 if self.left.eval(env) != self.right.eval(env) else 1
+
+class Lt(Binary):
+    __slots__ = ['left', 'right']
+    def eval(self, env: dict):
+        return 1 if self.left.eval(env) < self.right.eval(env) else 1
+    
+
 class Var(Expr):
     __slots__ = ['name']
     def __init__(self, name):
-       self.name = name
+        self.name = name
     def eval(self, env: dict):
         if self.name in env:
             return env[self.name]
         raise NameError(self.name)
 
 class Assign(Expr):
-    __slots__=[]
+    __slots__ = ['name', 'e']
     def __init__(self, name, e):
-       self.name = name
-       self.e = Expr.new(e)
+        self.name = name
+        self.e = Expr.new(e)
 
     def eval(self, env):
         env[self.name] = self.e.eval(env)
         return env[self.name]
 
-        
 def conv(tree):
     if tree == 'Block':
         return conv(tree[0])
@@ -90,13 +105,19 @@ def conv(tree):
     if tree == 'Add':
         return Add(conv(tree[0]), conv(tree[1]))
     if tree == 'Sub':
-        return Sub(conv(tree[0]), conv(tree[1]))
+        return Sub(conv(tree[0]), conv(tree[1]))    
     if tree == 'Mul':
         return Mul(conv(tree[0]), conv(tree[1]))
     if tree == 'Div':
         return Div(conv(tree[0]), conv(tree[1]))
     if tree == 'Mod':
         return Mod(conv(tree[0]), conv(tree[1]))
+    if tree == 'Eq':
+        return Eq(conv(tree[0]), conv(tree[1]))
+    if tree == 'Ne':
+        return Ne(conv(tree[0]), conv(tree[1]))
+    if tree == 'Lt':
+        return Lt(conv(tree[0]), conv(tree[1]))
     if tree == 'Var':
         return Var(str(tree))
     if tree == 'LetDecl':
