@@ -142,20 +142,21 @@ def FuncApp(Expr):
         return f'({repr(self. func)}) ({repr(self.param)})'
 
     def eval(self, env):
+        f = self.func.eval(env)
         v = self.param.eval(env)
-        name = self.func.name
+        name = f.name
         env[name] = v
-        return self.func.body.eval(env)
+        return f.body.eval(env)
 
-e = FuncApp(f, App(1,1))
 
-print(e, '=>', e.eval({}))
 
 def conv(tree):
     if tree == 'Block':
         return conv(tree[0])
-    if tree == 'FuncDecl'
-        return Assign(conv(tree[0]), conv(tree[1], conv(tree[2]))
+    if tree == 'FuncDecl':
+        return Assign(str(tree[0]), Lambda(str(tree[1]), conv(tree[2])))
+    if tree == 'FuncApp':
+        return FuncApp(conv(tree[0]), conv(tree[1]))
     if tree == 'If':
         return If(conv(tree[0]), conv(tree[1]), conv(tree[2]))
     if tree == 'While':
