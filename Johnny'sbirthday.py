@@ -2,25 +2,25 @@ import sys
 import io
 import datetime
 sys.stdin = io.TextIOWrapper(sys.stdin.buffer, encoding='utf-8')
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
-sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')*2
+#sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+#sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')*2
 
 #現在の日付
 
 b = datetime.date.today()
-print(b)
-#b='2020-01-10'
+#print(b)
+#a = input('What is the date today?')
 
 if  b == '2020-05-17':
      print('Iwamoto Hikaru')
-elif  b == '2020-05-05':
-     print('深澤辰哉の誕生日')
+elif  b == '2020-01-10':
+     print('Fukasawa Tatsuya')
 elif  b == '2020-06-21':
-     print('向井康二の誕生日')
+     print('Mukai Kouji')
 elif  b == '2020-06-27':
-     print('ラウールの誕生日')
-elif  b == '2020--07-05':
-     print('佐久間大介の誕生日')
+     print('Rauuru')
+elif  b == '2020-07-05':
+     print('Sakuma Daisuke')
 #elif  b == '2020-11-05':
 #      print('渡辺翔太の誕生日')
 #elif  b == '2020-11-27':
